@@ -7,6 +7,7 @@ import (
 	"io"
 	"io/ioutil"
 	"net/http"
+	"time"
 
 	"github.com/google/go-querystring/query"
 )
@@ -28,7 +29,7 @@ type IntercomHTTPClient struct {
 }
 
 func NewIntercomHTTPClient(appID, apiKey string, baseURI, clientVersion *string, debug *bool) IntercomHTTPClient {
-	return IntercomHTTPClient{Client: &http.Client{}, AppID: appID, APIKey: apiKey, BaseURI: baseURI, ClientVersion: clientVersion, Debug: debug}
+	return IntercomHTTPClient{Client: &http.Client{Timeout: 5 * time.Second}, AppID: appID, APIKey: apiKey, BaseURI: baseURI, ClientVersion: clientVersion, Debug: debug}
 }
 
 func (c IntercomHTTPClient) UserAgentHeader() string {
